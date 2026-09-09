@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/plex-300.woff2") format("woff2");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/plex-400.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/plex-500.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/plex-600.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/plex-700.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+
+  /* مساحة العمل — رمادي مؤسسي بارد */
+  --color-paper: #f1f4f8;
+  --color-card: #ffffff;
+  --color-line: #e2e7f0;
+  --color-ink: #131c2b;
+
+  /* الكحلي المؤسسي للهوية */
+  --color-navy-950: #0b1422;
+  --color-navy-900: #101d31;
+  --color-navy-800: #17294a;
+  --color-navy-700: #1f3a63;
+  --color-navy-600: #2b4d80;
+
+  /* الذهبي المقيد للعلامة */
+  --color-gold-50: #faf6ec;
+  --color-gold-100: #f4ead1;
+  --color-gold-200: #e8d5a4;
+  --color-gold-300: #dabf76;
+  --color-gold-400: #caa54c;
+  --color-gold-500: #b9892f;
+  --color-gold-600: #9a6e24;
+  --color-gold-700: #7c571c;
+
+  /* دلالي */
+  --color-ok-50: #ecfdf5; --color-ok-100: #d1fae5; --color-ok-600: #059669; --color-ok-700: #047857;
+  --color-warn-50: #fffbeb; --color-warn-100: #fef3c7; --color-warn-600: #d97706; --color-warn-700: #b45309;
+  --color-danger-50: #fef2f2; --color-danger-100: #fee2e2; --color-danger-600: #dc2626; --color-danger-700: #b91c1c;
+  --color-info-50: #eff6ff; --color-info-100: #dbeafe; --color-info-600: #2563eb; --color-info-700: #1d4ed8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01";
+}
+
+::selection { background: var(--color-gold-200); color: var(--color-navy-950); }
+
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: #c3ccd9; border-radius: 99px; }
+*::-webkit-scrollbar-thumb:hover { background: #9aa7ba; }
+aside::-webkit-scrollbar-thumb { background: #2a3d5c; }
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-line bg-card shadow-[0_1px_2px_rgba(16,29,49,0.05)];
+  }
+  .card-hover { @apply transition-all duration-150 hover:shadow-[0_4px_16px_-4px_rgba(16,29,49,0.12)] hover:border-[#ccd5e3]; }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink/35 outline-none transition focus:border-navy-700 focus:ring-[3px] focus:ring-navy-700/10;
+  }
+  .label { @apply mb-1.5 block text-[11px] font-bold text-ink/55; }
+
+  .btn, .btn-gold, .btn-navy, .btn-ghost, .btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-3.5 py-2 text-[13px] font-bold transition-all active:scale-[0.98] disabled:opacity-50;
+  }
+  .btn-gold { @apply bg-gold-500 text-white hover:bg-gold-400 shadow-[0_4px_12px_-4px_rgba(185,137,47,0.55)]; }
+  .btn-navy { @apply bg-navy-900 text-white hover:bg-navy-800; }
+  .btn-ghost { @apply border border-line bg-white text-ink/70 hover:border-[#c6d0df] hover:text-navy-900 hover:bg-[#f7f9fc]; }
+  .btn-danger { @apply border border-danger-100 bg-danger-50 text-danger-700 hover:bg-danger-100; }
+
+  .chip { @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-bold; }
+
+  .th { @apply px-3.5 py-2.5 text-right text-[10.5px] font-bold text-ink/45 whitespace-nowrap; }
+  .td { @apply px-3.5 py-3 text-[13px] align-top; }
+
+  .nav-link {
+    @apply flex items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] font-semibold text-white/55 transition hover:bg-white/[0.07] hover:text-white;
+  }
+  .nav-link[data-active="true"] {
+    @apply bg-white/[0.08] text-white;
+    box-shadow: inset -2.5px 0 0 0 var(--color-gold-400);
+  }
+  .nav-group { @apply mb-1 mt-4 px-3 text-[10px] font-bold text-gold-400/80 first:mt-0; }
+
+  .tab-link {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-md px-3 py-1.5 text-[12.5px] font-bold text-ink/50 transition hover:text-navy-900;
+  }
+  .tab-link[data-active="true"] { @apply bg-white text-navy-900 shadow-[0_1px_3px_rgba(16,29,49,0.12)]; }
+}
